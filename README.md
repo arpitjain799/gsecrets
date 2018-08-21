@@ -14,29 +14,29 @@ Library
 ---
 
 ```
-import secrets
+import gsecrets
 
 # Get a single secret
-secrets.get("slack/token")
+gsecrets.get("slack/token")
 
-# Get a dictionary of secrets 
-secrets.get("manifests/admiral/env.json")
+# Get a dictionary of gsecrets 
+gsecrets.get("manifests/admiral/env.json")
 
 # Get a single secret from a dictionary of secrets 
-secrets.get("manifests/admiral/env.json.airflow_fernet_key")
+gsecrets.get("manifests/admiral/env.json.airflow_fernet_key")
 
 
 # Create or update a secret
-secrets.put("slack/token", "AAABBBCCC")
+gsecrets.put("slack/token", "AAABBBCCC")
 
 # Create or update a secret, uses Python `dictionary.update` semantics for the update
-secrets.put("manifests/admiral/env.json", {airflow_fernet_key: "AAABBBCCC"})
+gsecrets.put("manifests/admiral/env.json", {airflow_fernet_key: "AAABBBCCC"})
 
 # Replace an entire dictionary of secrets
-secrets.put("manifests/admiral/env.json", {airflow_fernet_key: "AAABBBCCC"}, replace=True)
+gsecrets.put("manifests/admiral/env.json", {airflow_fernet_key: "AAABBBCCC"}, replace=True)
 
 # Update a single value in a secret dictionary
-secrets.put("manifests/admiral/env.json.airflow_fernet_key", "AAABBBCCC")
+gsecrets.put("manifests/admiral/env.json.airflow_fernet_key", "AAABBBCCC")
 ```
 
 CLI
@@ -45,16 +45,24 @@ CLI
 The library commands map to CLI actions:
 
 ```
-secrets get slack/token
+gsecrets get slack/token
 
-secrets put slack/token AAABBBCCC
+gsecrets put slack/token AAABBBCCC
 
 # etc.
 
 # For a full list:
-secrets --help
+gsecrets --help
 ```
 
+Development
+---
+
+Run the CLI inside a container
+
+```
+./cli.sh --help
+```
 
 TODO
 ---

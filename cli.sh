@@ -1,1 +1,1 @@
-docker-compose run --rm --entrypoint "/bin/sh" gsecrets "$@"
+docker-compose run --rm gsecrets "$@"

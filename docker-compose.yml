@@ -1,8 +1,8 @@
 version: '3'
 services:
-  secrets:
+  gsecrets:
     build: .
-    image: secrets
-    entrypoint: secrets
+    image: gsecrets
+    entrypoint: gsecrets
     volumes:
       - .:/app
