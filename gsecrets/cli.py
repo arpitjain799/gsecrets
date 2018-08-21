@@ -1,8 +1,12 @@
 import click
+from . import secrets
 
 @click.group()
 def cli():
     pass
+
 @cli.command()
-def hello():
-	print("hello world")
+@click.argument('path')
+@click.argument('content')
+def put(path, content):
+    secrets.put(path, content)

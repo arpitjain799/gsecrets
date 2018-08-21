@@ -14,6 +14,8 @@ setup(name='gsecrets',
       },
       install_requires=[
         'click',
+        'google-api-python-client',
+        'google-cloud-storage',
         'ndg-httpsclient',
         'pyasn1',
         'pyopenssl',

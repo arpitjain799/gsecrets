@@ -6,3 +6,4 @@ services:
     entrypoint: gsecrets
     volumes:
       - .:/app
+      - $HOME/.config/gcloud:/root/.config/gcloud  # credentials for google provider
