@@ -56,8 +56,10 @@ secrets --help
 ```
 
 
+TODO
+---
 
-
-
+* Is this gonna need Python 2 support?
+* Specify a Pipfile for version pinning in Dockerfile?
 
 

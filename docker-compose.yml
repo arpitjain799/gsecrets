@@ -1,0 +1,8 @@
+version: '3'
+services:
+  secrets:
+    build: .
+    image: secrets
+    entrypoint: secrets
+    volumes:
+      - .:/app
