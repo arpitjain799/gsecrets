@@ -8,8 +8,9 @@ def cli():
 @cli.command()
 @click.argument('path')
 @click.argument('content')
-def put(path, content):
-    secrets.put(path, content)
+@click.option('--replace/--no-replace', default=False)
+def put(path, content, replace):
+    secrets.put(path, content, replace)
 
 @cli.command()
 @click.argument('path')

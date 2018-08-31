@@ -34,9 +34,6 @@ gsecrets.put("manifests/admiral/env.json", {airflow_fernet_key: "AAABBBCCC"})
 
 # Replace an entire dictionary of secrets
 gsecrets.put("manifests/admiral/env.json", {airflow_fernet_key: "AAABBBCCC"}, replace=True)
-
-# Update a single value in a secret dictionary
-gsecrets.put("manifests/admiral/env.json.airflow_fernet_key", "AAABBBCCC")
 ```
 
 CLI
