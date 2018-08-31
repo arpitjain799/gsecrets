@@ -1,4 +1,6 @@
 import base64
+import json
+import re
 import warnings
 import googleapiclient.discovery
 from google.cloud import storage
@@ -56,8 +58,26 @@ def get(path):
     Examples:
 
         get("slack/token") -> "AAABBBCCC"
+        
+    Automatically parse json if the path ends with `.json`:
+
+        get("manifests/admiral/env.json") -> "{'key': AAABBBCCC}"
+
+    Retrieve a single value from a json file:
+    
+        get("manifests/admiral/env.json.key") -> "AAABBBCCC"
+
 
     """
+
+    # Check if this is a json key path
+    pattern = "(.+\.json)\.(.+)$"
+    matches = re.search(pattern, path)
+    if matches:
+        json_extract_mode = True
+        path = matches.group(1)
+        key = matches.group(2)
+
     blob = bucket.blob(path)
     ciphertext = blob.download_as_string()
     kms_client = googleapiclient.discovery.build('cloudkms','v1')
@@ -70,9 +90,14 @@ def get(path):
     )
     response = request.execute()
     plaintext = base64.b64decode(response['plaintext'].encode('utf-8'))
+
+    if json_extract_mode:
+        return json.loads(plaintext).get(key)
+
+    if path.endswith(".json"):
+        return json.loads(plaintext)
+
     return plaintext
-
-
 
 
 
