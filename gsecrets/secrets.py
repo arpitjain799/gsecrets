@@ -1,6 +1,12 @@
+import base64
+import warnings
 import googleapiclient.discovery
 from google.cloud import storage
-import base64
+
+
+# Suppress this warning as this tool is intended to be authenticated
+# using user credentials. May revisit this decision in the future.
+warnings.filterwarnings("ignore", "Your application has authenticated using end user credentials")
 
 # Google Cloud KMS configuration
 project_id = "oee-secrets"
@@ -21,6 +27,13 @@ bucket_name = "oee-secrets"
 bucket = storage_client.bucket(bucket_name)
 
 def put(path, content):
+    """Put a secret with value `content` at `path`
+
+    Examples:
+
+        put("slack/token", "AABBBCCC")
+
+    """
     kms_client = googleapiclient.discovery.build('cloudkms','v1')
     crypto_keys = kms_client.projects().locations().keyRings().cryptoKeys()
     encoded = base64.b64encode(content.encode('utf-8'))
@@ -42,7 +55,7 @@ def get(path):
 
     Examples:
 
-        get("slack/token")
+        get("slack/token") -> "AAABBBCCC"
 
     """
     blob = bucket.blob(path)
