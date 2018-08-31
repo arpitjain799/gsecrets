@@ -36,3 +36,31 @@ def put(path, content):
 
     blob = bucket.blob(path)
     blob.upload_from_string(ciphertext)
+
+def get(path):
+    """Retrieve a secret
+
+    Examples:
+
+        get("slack/token")
+
+    """
+    blob = bucket.blob(path)
+    ciphertext = blob.download_as_string()
+    kms_client = googleapiclient.discovery.build('cloudkms','v1')
+    crypto_keys = kms_client.projects().locations().keyRings().cryptoKeys()
+    request = crypto_keys.decrypt(
+        name=resource,
+        body={
+            'ciphertext': ciphertext.decode('utf-8')
+        }
+    )
+    response = request.execute()
+    plaintext = base64.b64decode(response['plaintext'].encode('utf-8'))
+    return plaintext
+
+
+
+
+
+
