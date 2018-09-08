@@ -61,6 +61,17 @@ Run the CLI inside a container
 ./cli.sh --help
 ```
 
+Configuration
+---
+
+Override the default project and bucket locations with environment variables:
+
+```
+GOOGLE_PROJECT=<project-id>
+
+GCS_BUCKET=<bucket-name>
+```
+
 TODO
 ---
 

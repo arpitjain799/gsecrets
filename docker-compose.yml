@@ -2,15 +2,19 @@ version: '3'
 services:
   gsecrets:
     build: .
-    image: gsecrets
     entrypoint: gsecrets
     volumes:
       - .:/app
       - $HOME/.config/gcloud:/root/.config/gcloud  # credentials for google provider
-  test:
+    environment:
+      - GOOGLE_PROJECT=oee-dev-145623
+      - GCS_BUCKET=oee-test-secrets
+  gsecrets_test:
     build: .
-    image: test
     entrypoint: tox
     volumes:
       - .:/app
       - $HOME/.config/gcloud:/root/.config/gcloud  # credentials for google provider
+    environment:
+      - GOOGLE_PROJECT=oee-dev-145623
+      - GCS_BUCKET=oee-test-secrets

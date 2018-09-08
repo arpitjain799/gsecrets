@@ -1,5 +1,6 @@
 import base64
 import json
+import os
 import re
 import warnings
 import googleapiclient.discovery
@@ -11,7 +12,7 @@ from google.cloud import storage
 warnings.filterwarnings("ignore", "Your application has authenticated using end user credentials")
 
 # Google Cloud KMS configuration
-project_id = "oee-secrets"
+project_id = os.environ.get("GOOGLE_PROJECT", "oee-secrets")
 location = "us-central1"
 keyring = "oee-key-ring"
 key = "oee-crypto-key"
@@ -25,7 +26,7 @@ resource = "projects/{}/locations/{}/keyRings/{}/cryptoKeys/{}".format(
 
 # Google Cloud Storage configuration
 storage_client = storage.Client(project=project_id)
-bucket_name = "oee-secrets"
+bucket_name = os.environ.get("GCS_BUCKET", "oee-secrets")
 bucket = storage_client.bucket(bucket_name)
 
 def put(path, content, replace=False):
