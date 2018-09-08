@@ -4,3 +4,5 @@ from .core import (
 	get,
 	put,
 )
+
+from . import exceptions

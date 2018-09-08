@@ -1,3 +1,4 @@
+import sys
 import click
 from . import core
 
@@ -15,4 +16,8 @@ def put(path, content, replace):
 @cli.command()
 @click.argument('path')
 def get(path):
-    print(core.get(path))
+	try:
+	    secret = core.get(path)
+	    print(secret)
+	except core.SecretNotFound:
+		sys.exit("Secret not found")

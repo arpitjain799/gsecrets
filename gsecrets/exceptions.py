@@ -1,0 +1,3 @@
+
+class SecretNotFound(Exception):
+    pass

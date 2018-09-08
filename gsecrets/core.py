@@ -5,6 +5,8 @@ import re
 import warnings
 import googleapiclient.discovery
 from google.cloud import storage
+from google.api_core.exceptions import NotFound
+from .exceptions import SecretNotFound
 
 
 # Suppress this warning as this tool is intended to be authenticated
@@ -103,7 +105,12 @@ def get(path):
         key = matches.group(2)
 
     blob = bucket.blob(path)
-    ciphertext = blob.download_as_string()
+
+    try:
+        ciphertext = blob.download_as_string()
+    except NotFound:
+        raise SecretNotFound()
+
     kms_client = googleapiclient.discovery.build('cloudkms','v1')
     crypto_keys = kms_client.projects().locations().keyRings().cryptoKeys()
     request = crypto_keys.decrypt(
