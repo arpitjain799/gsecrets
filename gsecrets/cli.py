@@ -18,6 +18,6 @@ def put(path, content, replace):
 def get(path):
 	try:
 	    secret = core.get(path)
-	    print(secret)
+	    print(secret.decode('utf-8'))
 	except core.SecretNotFound:
 		sys.exit("Secret not found")
