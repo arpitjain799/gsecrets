@@ -1,8 +1,6 @@
 
-from .core import (
-	bucket_name,
-	get,
-	put,
+from .client import (
+	Client,
 )
 
 from . import exceptions
