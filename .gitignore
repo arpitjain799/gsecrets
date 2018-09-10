@@ -3,3 +3,5 @@
 *.egg-info
 .tox
 .pytest_cache
+build/
+dist/

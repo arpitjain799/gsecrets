@@ -74,6 +74,15 @@ Run the CLI inside a container
 ./cli.sh --help
 ```
 
+Release
+---
+
+```
+pip install twine
+
+python setup.py upload
+```
+
 TODO
 ---
 
