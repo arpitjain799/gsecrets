@@ -3,12 +3,25 @@ Secrets
 
 Easily and securely store and retrieve secrets like API tokens so that they don't end up in git repos.
 
-Comes preconfigured for OEE, pointing at the `oee-secrets` GCP project and `oee-secrets` bucket.
-
 Secrets Architecture
 ---
 
 Secrets are stored using "application level encryption". That is, secrets are stored in Google Cloud Storage, encrypted by a key before they are uploaded (versus using Google-provided encryption in Cloud Storagee). Encryption keys are generated and retrieved from Google Key Management Service (KMS).
+
+Deployment and Configuration
+---
+
+Create a keyring, key, and bucket.
+
+Add a file `keyring.json` into the bucket with the keyring details:
+
+```
+{
+	"location": "us-central1",
+	"keyring": "my-key-ring",
+	"key": "my-crypto-key"
+}
+```
 
 Library
 ---
@@ -59,17 +72,6 @@ Run the CLI inside a container
 
 ```
 ./cli.sh --help
-```
-
-Configuration
----
-
-Override the default project and bucket locations with environment variables:
-
-```
-GOOGLE_PROJECT=<project-id>
-
-GCS_BUCKET=<bucket-name>
 ```
 
 TODO
