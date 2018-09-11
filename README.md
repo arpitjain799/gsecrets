@@ -6,7 +6,7 @@ Easily and securely store and retrieve secrets like API tokens so that they don'
 Secrets Architecture
 ---
 
-Secrets are stored using "application level encryption". That is, secrets are stored in Google Cloud Storage, encrypted by a key before they are uploaded (versus using Google-provided encryption in Cloud Storagee). Encryption keys are generated and retrieved from Google Key Management Service (KMS).
+Secrets are stored using "application level encryption". That is, secrets are stored in Google Cloud Storage, encrypted by a key before they are uploaded (versus using Google-provided encryption in Cloud Storage). Encryption keys are generated and retrieved from Google Key Management Service (KMS).
 
 Deployment and Configuration
 ---
@@ -55,9 +55,11 @@ CLI
 The library commands map to CLI actions:
 
 ```
-gsecrets get slack/token
+gsecrets get my-project/my-bucket/slack/token
 
-gsecrets put slack/token AAABBBCCC
+gsecrets put my-project/my-bucket/slack/token AAABBBCCC
+
+gsecrets put my-project/my-bucket/slack/env.json.FERNET_KEY AAABBBCCC
 
 # etc.
 

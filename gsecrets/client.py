@@ -72,10 +72,32 @@ class Client(object):
 
 
         """
+
         dictionary_mode = path.endswith(".json")
-        
+
+        # One other way to enter dictionary-mode, which is the dictionary-key syntax.
+        # If the path ends with ".json.KEY", replace a single key in the dictionary.
+        #
+        # e.g. 
+        #   
+        #   path=project/bucket/env.json.key 
+        #   content=value
+        #
+        pattern = "(.+\.json)\.(.+)$"
+        matches = re.search(pattern, path)
+        if matches:
+            dictionary_mode = True
+            path = matches.group(1)
+            key = matches.group(2)
+            content = json.dumps({key: content})
+            replace = False
+
         if dictionary_mode:
-            existing_secret = get(path)
+            try:
+                existing_secret = self.get(path)
+            except SecretNotFound:
+                existing_secret = {}
+
             if type(content) is not dict:
                 new_secret = json.loads(content)
 
