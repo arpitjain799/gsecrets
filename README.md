@@ -28,25 +28,27 @@ Library
 
 ```
 import gsecrets
-
+VAULT_LOCATION = "oee-secrets/oee-secrets"
+secrets_client = gsecrets.Client(VAULT_LOCATION)
+    
 # Get a single secret
-gsecrets.get("slack/token")
+secrets_client.get("slack/token")
 
 # Get a dictionary of gsecrets 
-gsecrets.get("manifests/admiral/env.json")
+secrets_client.get("manifests/admiral/env.json")
 
 # Get a single secret from a dictionary of secrets 
-gsecrets.get("manifests/admiral/env.json.airflow_fernet_key")
+secrets_client.get("manifests/admiral/env.json.airflow_fernet_key")
 
 
 # Create or update a secret
-gsecrets.put("slack/token", "AAABBBCCC")
+secrets_client.put("slack/token", "AAABBBCCC")
 
 # Create or update a secret, uses Python `dictionary.update` semantics for the update
-gsecrets.put("manifests/admiral/env.json", {airflow_fernet_key: "AAABBBCCC"})
+secrets_client.put("manifests/admiral/env.json", {airflow_fernet_key: "AAABBBCCC"})
 
 # Replace an entire dictionary of secrets
-gsecrets.put("manifests/admiral/env.json", {airflow_fernet_key: "AAABBBCCC"}, replace=True)
+secrets_client.put("manifests/admiral/env.json", {airflow_fernet_key: "AAABBBCCC"}, replace=True)
 ```
 
 CLI
