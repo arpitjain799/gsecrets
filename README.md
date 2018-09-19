@@ -1,12 +1,12 @@
-Secrets
+gsecrets
 ===
 
-Easily and securely store and retrieve secrets like API tokens so that they don't end up in git repos.
+`gsecrets` is a CLI utility and Python library for storing sensitive information using Google Cloud Key Management Service and Cloud Storage.
 
-Secrets Architecture
+Architecture
 ---
 
-Secrets are stored using "application level encryption". That is, secrets are stored in Google Cloud Storage, encrypted by a key before they are uploaded (versus using Google-provided encryption in Cloud Storage). Encryption keys are generated and retrieved from Google Key Management Service (KMS).
+Secrets are stored using "application level encryption". That is, secrets are stored in Google Cloud Storage, encrypted by a key before they are uploaded. Encryption keys are generated and retrieved from Google Key Management Service (KMS).
 
 Deployment and Configuration
 ---
@@ -28,7 +28,7 @@ Library
 
 ```
 import gsecrets
-VAULT_LOCATION = "oee-secrets/oee-secrets"
+VAULT_LOCATION = "my-project/my-bucket"
 secrets_client = gsecrets.Client(VAULT_LOCATION)
     
 # Get a single secret
@@ -44,7 +44,7 @@ secrets_client.get("manifests/admiral/env.json.airflow_fernet_key")
 # Create or update a secret
 secrets_client.put("slack/token", "AAABBBCCC")
 
-# Create or update a secret, uses Python `dictionary.update` semantics for the update
+# Create or update a secret, uses `dictionary.update` for the update
 secrets_client.put("manifests/admiral/env.json", {airflow_fernet_key: "AAABBBCCC"})
 
 # Replace an entire dictionary of secrets
@@ -86,11 +86,4 @@ pip install twine
 
 python setup.py upload
 ```
-
-TODO
----
-
-* Is this gonna need Python 2 support?
-* Specify a Pipfile for version pinning in Dockerfile?
-
 
