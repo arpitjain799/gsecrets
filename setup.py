@@ -43,11 +43,6 @@ setup(name='gsecrets',
       url='https://github.com/openeemeter/gsecrets',
       author='Open Energy Efficiency',
       packages=find_packages(),
-      entry_points={
-        'console_scripts': [
-          'gsecrets = gsecrets.cli:cli',
-        ]
-      },
       install_requires=[
         'click',
         'google-api-python-client',
