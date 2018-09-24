@@ -38,7 +38,7 @@ class UploadCommand(Command):
         sys.exit()
 
 setup(name='gsecrets',
-      version='1.0.0',
+      version='1.0.1',
       description='API and CLI for securely managing secrets',
       url='https://github.com/openeemeter/gsecrets',
       author='Open Energy Efficiency',
