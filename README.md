@@ -54,6 +54,16 @@ secrets_client.put("manifests/admiral/env.json", {airflow_fernet_key: "AAABBBCCC
 CLI
 ---
 
+A CLI is provided that executes `gsecrets` inside a Docker wrapper.
+
+Installation:
+
+	git clone git@github.com:openeemeter/gsecrets.git
+	cd gsecrets
+	./install.sh
+
+The install procedure adds the `cli.sh` scripts to `/usr/local/bin`. Make sure this directory is in your `$PATH` (normally it is by default).
+
 The library commands map to CLI actions:
 
 ```
