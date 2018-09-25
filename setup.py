@@ -52,6 +52,11 @@ setup(name='gsecrets',
         'pyopenssl',
         'requests',
       ],
+      entry_points={  
+        'console_scripts': [  
+          'gsecrets = gsecrets.cli:cli',  
+        ] 
+      },
       cmdclass={
         'upload': UploadCommand,
       },
