@@ -64,6 +64,8 @@ Installation:
 
 The install procedure adds the `cli.sh` scripts to `/usr/local/bin`. Make sure this directory is in your `$PATH` (normally it is by default).
 
+The CLI depends on coreutils, so make sure if you're on mac you do `brew install coreutils`.
+
 The library commands map to CLI actions:
 
 ```
