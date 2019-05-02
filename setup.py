@@ -38,7 +38,7 @@ class UploadCommand(Command):
         sys.exit()
 
 setup(name='gsecrets',
-      version='1.0.2',
+      version='1.1.0',
       description='API and CLI for securely managing secrets',
       url='https://github.com/openeemeter/gsecrets',
       author='Open Energy Efficiency',
@@ -52,10 +52,10 @@ setup(name='gsecrets',
         'pyopenssl',
         'requests',
       ],
-      entry_points={  
-        'console_scripts': [  
-          'gsecrets = gsecrets.cli:cli',  
-        ] 
+      entry_points={
+        'console_scripts': [
+          'gsecrets = gsecrets.cli:cli',
+        ]
       },
       cmdclass={
         'upload': UploadCommand,
