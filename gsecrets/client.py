@@ -5,6 +5,7 @@ import re
 import warnings
 import googleapiclient.discovery
 from google.cloud import storage
+from google.oauth2 import service_account
 from google.api_core.exceptions import NotFound
 from .exceptions import (
     InsufficientConfiguration,
@@ -25,15 +26,29 @@ class Client(object):
     bucket = None
     resource = None
 
-    def __init__(self, vault_location):
+    def __init__(self, vault_location, service_account_info=None):
+        '''
+        service_account_info something like this: json.load(open('service_account.json'))
+        '''
 
         # TODO: add error handling for bad `vault_location` formatting
         pattern = "(.+)\/(.+)"
         matches = re.search(pattern, vault_location)
+        self.service_account_info = service_account_info
         self.project_id = matches.group(1)
         self.bucket_name = matches.group(2)
 
-        self.storage_client = storage.Client(project=self.project_id)
+        if service_account_info is None:  # use default application creds from env
+            self.storage_client = storage.Client(project=self.project_id)
+        else:
+            credentials = service_account.Credentials.from_service_account_info(
+                service_account_info
+            )
+            self.storage_client = storage.Client(
+                project=self.project_id,
+                credentials=credentials
+            )
+
         self.bucket = self.storage_client.bucket(self.bucket_name)
         self.pull_keyring_configuration()
 
