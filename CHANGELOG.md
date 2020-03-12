@@ -4,6 +4,11 @@ Changelog
 Development
 -----------
 
+* Placeholder
+
+1.2.3
+-----
+
 * Add setuptools import.
 
 1.2.2
