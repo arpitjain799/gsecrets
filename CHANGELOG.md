@@ -4,6 +4,11 @@ Changelog
 Development
 -----------
 
+* Placeholder
+
+1.2.2
+-----
+
 * Update setup.py to fix typos.
 
 1.2.1
