@@ -35,5 +35,5 @@ def test_json_mode():
 		"oee-dev-145623/oee-test-secrets/test/manifest.json"
 	])
 	assert result.exit_code == 0
-	assert result.output.strip() == '{"KEY": "value", "KEY2": "value"}'
+	assert set(eval(result.output.strip())) == set(eval('{"KEY": "value", "KEY2": "value"}'))
 
