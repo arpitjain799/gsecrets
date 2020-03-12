@@ -7,3 +7,6 @@ COPY . /app/
 WORKDIR /app
 RUN pip install -e .
 RUN pip install tox
+
+# for releases
+RUN pip install twine 
