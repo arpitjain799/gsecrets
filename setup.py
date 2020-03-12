@@ -1,4 +1,4 @@
-from setuptools import find_packages, setup, Command
+from setuptools import find_packages, setup, Command, setuptools
 import os
 import sys
 from shutil import rmtree

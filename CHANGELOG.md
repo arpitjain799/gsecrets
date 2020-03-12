@@ -4,7 +4,7 @@ Changelog
 Development
 -----------
 
-* Placeholder
+* Add setuptools import.
 
 1.2.2
 -----
