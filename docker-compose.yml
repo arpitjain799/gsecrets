@@ -1,7 +1,16 @@
 version: '3'
 services:
-  gsecrets:
+  shell:
     build: .
+    image: gsecrets
+    stdin_open: true
+    tty: true
+    entrypoint: /bin/sh
+    volumes:
+      - .:/app
+      - /app/tests/__pycache__/
+  gsecrets:
+    image: gsecrets
     entrypoint: gsecrets
     volumes:
       - .:/app
@@ -10,7 +19,7 @@ services:
       - GOOGLE_PROJECT=oee-dev-145623
       - GCS_BUCKET=oee-test-secrets
   gsecrets_test:
-    build: .
+    image: gsecrets
     entrypoint: tox
     volumes:
       - .:/app
