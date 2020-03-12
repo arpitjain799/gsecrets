@@ -4,7 +4,7 @@ Changelog
 Development
 -----------
 
-* Placeholder
+* Remove unnecessary import.
 
 1.2.3
 -----
