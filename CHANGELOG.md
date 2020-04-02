@@ -4,7 +4,7 @@ Changelog
 Development
 -----------
 
-* Placeholder
+* Add cache_discovery=False to avoid memcache warning.
 
 1.2.4
 -----

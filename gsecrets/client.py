@@ -122,7 +122,7 @@ class Client(object):
                 existing_secret.update(new_secret)
                 content = json.dumps(existing_secret)
 
-        kms_client = googleapiclient.discovery.build('cloudkms','v1')
+        kms_client = googleapiclient.discovery.build('cloudkms','v1', cache_discovery=False)
         crypto_keys = kms_client.projects().locations().keyRings().cryptoKeys()
         encoded = base64.b64encode(content.encode('utf-8'))
         request = crypto_keys.encrypt(
@@ -172,7 +172,7 @@ class Client(object):
         except NotFound:
             raise SecretNotFound()
 
-        kms_client = googleapiclient.discovery.build('cloudkms','v1')
+        kms_client = googleapiclient.discovery.build('cloudkms','v1', cache_discovery=False)
         crypto_keys = kms_client.projects().locations().keyRings().cryptoKeys()
         request = crypto_keys.decrypt(
             name=self.resource,
