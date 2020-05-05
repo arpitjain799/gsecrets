@@ -20,7 +20,7 @@
 __title__ = "gsecrets"
 __description__ = 'API and CLI for securely managing secrets'
 __url__ = 'https://github.com/openeemeter/gsecrets'
-__version__ = "1.2.5"
+__version__ = "1.2.6"
 __author__ = "Recurve"
 __author_email__ = "admin@recurve.com"
 __license__ = "Apache 2.0"

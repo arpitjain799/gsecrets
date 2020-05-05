@@ -4,6 +4,11 @@ Changelog
 Development
 -----------
 
+* Placeholder
+
+1.2.6
+-----
+
 * Relax constraints on version pinning (kept pyopenssl pinned).
 
 1.2.5
