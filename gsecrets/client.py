@@ -138,6 +138,22 @@ class Client(object):
         blob = self.bucket.blob(path)
         blob.upload_from_string(ciphertext)
 
+    def ls(self, path=''):
+        """List available secrets, with optional prefix filter
+
+        Examples:
+
+            ls('') --> ['admiral/service-account-json',
+                    'backups/rclone-conf-composer',
+                    'backups/rclone-conf-testing',
+                    ...]
+    
+            ls("admiral") --> ['admiral/service-account-json']
+
+        """
+
+        return [x.name for x in self.storage_client.list_blobs(self.bucket, prefix=path)]
+
 
     def get(self, path):
         """Retrieve a secret

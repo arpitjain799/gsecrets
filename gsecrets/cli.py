@@ -36,3 +36,15 @@ def get(path):
             print(secret.decode("utf-8"))
     except SecretNotFound:
         sys.exit("Secret not found")
+
+
+
+@cli.command()
+@click.argument("path", default="")
+def ls(path):
+    if not "/" in path:
+        sys.exit("Usage: gsecrets ls project/bucket/optional_search_path")
+    vault_location, path = parse_vault_location(path)
+    client = Client(vault_location)
+    print("\n".join(client.ls(path)))
+
