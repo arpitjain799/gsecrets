@@ -9,13 +9,6 @@ Development
 1.3.0
 -----
 
-
-* Placeholder
-
-1.2.7
------
-
-
 * Add ls option to list secrets
 
 1.2.6
