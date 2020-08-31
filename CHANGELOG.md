@@ -4,7 +4,7 @@ Changelog
 Development
 -----------
 
-* Placeholder
+* Add ls option to list secrets
 
 1.2.6
 -----
