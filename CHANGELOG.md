@@ -4,6 +4,11 @@ Changelog
 Development
 -----------
 
+* Placeholder
+
+1.3.1
+-----
+
 * Add option to pass credentials.
 
 1.3.0
