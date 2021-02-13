@@ -4,15 +4,18 @@ import click
 from .client import Client
 from .exceptions import SecretNotFound
 
+
 @click.group()
 def cli():
     pass
+
 
 def parse_vault_location(path):
     sp = path.split("/")
     vault_location = sp[0] + "/" + sp[1]
     path = "/".join(sp[2:])
     return (vault_location, path)
+
 
 @cli.command()
 @click.argument("path")
@@ -22,6 +25,7 @@ def put(path, content, replace):
     vault_location, path = parse_vault_location(path)
     client = Client(vault_location)
     client.put(path, content, replace)
+
 
 @cli.command()
 @click.argument("path")
@@ -38,7 +42,6 @@ def get(path):
         sys.exit("Secret not found")
 
 
-
 @cli.command()
 @click.argument("path", default="")
 def ls(path):
@@ -47,4 +50,3 @@ def ls(path):
     vault_location, path = parse_vault_location(path)
     client = Client(vault_location)
     print("\n".join(client.ls(path)))
-

@@ -4,12 +4,12 @@ Changelog
 Development
 -----------
 
-* Placeholder
+* Add option to pass credentials.
 
 1.3.0
 -----
 
-* Add ls option to list secrets
+* Add ls option to list secrets.
 
 1.2.6
 -----

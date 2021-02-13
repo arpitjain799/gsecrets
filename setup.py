@@ -44,6 +44,7 @@ class UploadCommand(Command):
 
         sys.exit()
 
+
 setup(
     name="gsecrets",
     version=about["__version__"],
