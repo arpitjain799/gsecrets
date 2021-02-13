@@ -14,7 +14,10 @@ from .exceptions import (
 
 # Suppress this warning as this tool is intended to be authenticated
 # using user credentials. May revisit this decision in the future.
-warnings.filterwarnings("ignore", "Your application has authenticated using end user credentials")
+warnings.filterwarnings(
+    "ignore", "Your application has authenticated using end user credentials"
+)
+
 
 class Client(object):
 
@@ -27,9 +30,9 @@ class Client(object):
     resource = None
 
     def __init__(self, vault_location, service_account_info=None):
-        '''
+        """
         service_account_info something like this: json.load(open('service_account.json'))
-        '''
+        """
 
         # TODO: add error handling for bad `vault_location` formatting
         pattern = "(.+)\/(.+)"
@@ -40,23 +43,20 @@ class Client(object):
 
         if service_account_info is None:  # use default application creds from env
             self.storage_client = storage.Client(project=self.project_id)
+            self.credentials = None
         else:
-            credentials = service_account.Credentials.from_service_account_info(
+            self.credentials = service_account.Credentials.from_service_account_info(
                 service_account_info
             )
             self.storage_client = storage.Client(
-                project=self.project_id,
-                credentials=credentials
+                project=self.project_id, credentials=self.credentials
             )
 
         self.bucket = self.storage_client.bucket(self.bucket_name)
         self.pull_keyring_configuration()
 
         self.resource = "projects/{}/locations/{}/keyRings/{}/cryptoKeys/{}".format(
-            self.project_id,
-            self.location,
-            self.keyring,
-            self.key
+            self.project_id, self.location, self.keyring, self.key
         )
 
     def pull_keyring_configuration(self):
@@ -93,9 +93,9 @@ class Client(object):
         # One other way to enter dictionary-mode, which is the dictionary-key syntax.
         # If the path ends with ".json.KEY", replace a single key in the dictionary.
         #
-        # e.g. 
-        #   
-        #   path=project/bucket/env.json.key 
+        # e.g.
+        #
+        #   path=project/bucket/env.json.key
         #   content=value
         #
         pattern = "(.+\.json)\.(.+)$"
@@ -122,23 +122,22 @@ class Client(object):
                 existing_secret.update(new_secret)
                 content = json.dumps(existing_secret)
 
-        kms_client = googleapiclient.discovery.build('cloudkms','v1', cache_discovery=False)
+        kms_client = googleapiclient.discovery.build(
+            "cloudkms", "v1", cache_discovery=False, credentials=self.credentials
+        )
         crypto_keys = kms_client.projects().locations().keyRings().cryptoKeys()
-        encoded = base64.b64encode(content.encode('utf-8'))
+        encoded = base64.b64encode(content.encode("utf-8"))
         request = crypto_keys.encrypt(
-            name=self.resource,
-            body={
-                'plaintext': encoded.decode('utf-8')
-            }
+            name=self.resource, body={"plaintext": encoded.decode("utf-8")}
         )
         response = request.execute()
 
-        ciphertext = response['ciphertext']
+        ciphertext = response["ciphertext"]
 
         blob = self.bucket.blob(path)
         blob.upload_from_string(ciphertext)
 
-    def ls(self, path=''):
+    def ls(self, path=""):
         """List available secrets, with optional prefix filter
 
         Examples:
@@ -147,13 +146,14 @@ class Client(object):
                     'backups/rclone-conf-composer',
                     'backups/rclone-conf-testing',
                     ...]
-    
+
             ls("admiral") --> ['admiral/service-account-json']
 
         """
 
-        return [x.name for x in self.storage_client.list_blobs(self.bucket, prefix=path)]
-
+        return [
+            x.name for x in self.storage_client.list_blobs(self.bucket, prefix=path)
+        ]
 
     def get(self, path):
         """Retrieve a secret
@@ -161,13 +161,13 @@ class Client(object):
         Examples:
 
             get("slack/token") -> "AAABBBCCC"
-            
+
         Automatically parse json if the path ends with `.json`:
 
             get("manifests/admiral/env.json") -> "{'key': AAABBBCCC}"
 
         Retrieve a single value from a json file:
-        
+
             get("manifests/admiral/env.json.key") -> "AAABBBCCC"
 
         """
@@ -188,16 +188,15 @@ class Client(object):
         except NotFound:
             raise SecretNotFound()
 
-        kms_client = googleapiclient.discovery.build('cloudkms','v1', cache_discovery=False)
+        kms_client = googleapiclient.discovery.build(
+            "cloudkms", "v1", cache_discovery=False, credentials=self.credentials
+        )
         crypto_keys = kms_client.projects().locations().keyRings().cryptoKeys()
         request = crypto_keys.decrypt(
-            name=self.resource,
-            body={
-                'ciphertext': ciphertext.decode('utf-8')
-            }
+            name=self.resource, body={"ciphertext": ciphertext.decode("utf-8")}
         )
         response = request.execute()
-        plaintext = base64.b64decode(response['plaintext'].encode('utf-8'))
+        plaintext = base64.b64decode(response["plaintext"].encode("utf-8"))
 
         if json_extract_mode:
             return json.loads(plaintext).get(key)
@@ -206,7 +205,3 @@ class Client(object):
             return json.loads(plaintext)
 
         return plaintext
-
-
-
-

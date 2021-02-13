@@ -1,5 +1,5 @@
 from .client import (
-	Client,
+    Client,
 )
 from . import exceptions
 from . import cli
