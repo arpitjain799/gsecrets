@@ -58,11 +58,12 @@ A CLI is provided that executes `gsecrets` inside a Docker wrapper.
 
 Installation:
 
-	git clone git@github.com:openeemeter/gsecrets.git
+	git clone git@github.com:recurve-inc/gsecrets.git
 	cd gsecrets
 	./install.sh
 
 The install procedure adds the `cli.sh` scripts to `/usr/local/bin`. Make sure this directory is in your `$PATH` (normally it is by default).
+
 
 The CLI depends on coreutils, so make sure if you're on mac you do `brew install coreutils`.
 
@@ -80,7 +81,13 @@ gsecrets put my-project/my-bucket/slack/env.json.FERNET_KEY AAABBBCCC
 # For a full list:
 gsecrets --help
 ```
-
+Install dependencies:
+```
+docker-compose run --rm --entrypoint "bash -c" gsecrets bash
+```
+```
+pip install e .
+```
 Development
 ---
 
