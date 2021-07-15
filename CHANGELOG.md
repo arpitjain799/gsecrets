@@ -4,6 +4,11 @@ Changelog
 Development
 -----------
 
+* Placeholder
+
+1.3.2
+-----
+
 * Change download_as_string() to download_as_bytes() due to deprecation.
 
 1.3.1
