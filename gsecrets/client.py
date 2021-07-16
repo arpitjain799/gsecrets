@@ -63,7 +63,10 @@ class Client(object):
         # TODO: error handling if this file is missing or badly configured
         path = "keyring.json"
         blob = self.bucket.blob(path)
-        keyring_configuration = blob.download_as_bytes()
+        try:
+            keyring_configuration = blob.download_as_bytes()
+        except:
+            keyring_configuration = blob.download_as_string()
         keyring_configuration = json.loads(keyring_configuration)
         self.location = keyring_configuration["location"]
         self.keyring = keyring_configuration["keyring"]
@@ -184,7 +187,10 @@ class Client(object):
         blob = self.bucket.blob(path)
 
         try:
-            ciphertext = blob.download_as_bytes()
+            try:
+                ciphertext = blob.download_as_bytes()
+            except:
+                ciphertext = blob.download_as_string()
         except NotFound:
             raise SecretNotFound()
 
