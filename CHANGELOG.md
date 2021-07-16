@@ -4,7 +4,7 @@ Changelog
 Development
 -----------
 
-* Placeholder
+* Allow attempt for download_as_string or as_bytes since it depends on the google-cloud-storage version.
 
 1.3.2
 -----
